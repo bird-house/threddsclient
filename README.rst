@@ -17,7 +17,7 @@ following command:
 
 .. code:: bash
 
-    $ conda install -c birdhouse -c conda-forge threddsclient
+    $ conda install -c conda-forge threddsclient
 
 From github
 -----------
@@ -148,13 +148,13 @@ Examples with IPython Notebook
 
 .. |Travis Build| image:: https://travis-ci.org/bird-house/threddsclient.svg?branch=master
    :target: https://travis-ci.org/bird-house/threddsclient
-.. |Install with Conda| image:: https://anaconda.org/birdhouse/threddsclient/badges/installer/conda.svg
-   :target: https://anaconda.org/birdhouse/threddsclient
-.. |License| image:: https://anaconda.org/birdhouse/threddsclient/badges/license.svg
-   :target: https://anaconda.org/birdhouse/threddsclient
+.. |Install with Conda| image:: https://anaconda.org/conda-forge/threddsclient/badges/installer/conda.svg
+   :target: https://anaconda.org/conda-forge/threddsclient
+.. |License| image:: https://anaconda.org/conda-forge/threddsclient/badges/license.svg
+   :target: https://anaconda.org/conda-forge/threddsclient
 .. |Join the Chat| image:: https://badges.gitter.im/bird-house/birdhouse.svg
    :target: https://gitter.im/bird-house/birdhouse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-.. |Version| image:: https://anaconda.org/birdhouse/threddsclient/badges/version.svg
-   :target: https://anaconda.org/birdhouse/threddsclient
-.. |Downloads| image:: https://anaconda.org/birdhouse/threddsclient/badges/downloads.svg
-   :target: https://anaconda.org/birdhouse/threddsclient
+.. |Version| image:: https://anaconda.org/conda-forge/threddsclient/badges/version.svg
+   :target: https://anaconda.org/conda-forge/threddsclient
+.. |Downloads| image:: https://anaconda.org/conda-forge/threddsclient/badges/downloads.svg
+   :target: https://anaconda.org/conda-forge/threddsclient
