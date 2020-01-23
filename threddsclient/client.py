@@ -1,5 +1,7 @@
+import logging
 import requests
 
+logger = logging.getLogger(__name__)
 
 def download_urls(url, skip=None, **kwargs):
     """
@@ -48,6 +50,7 @@ def read_url(url, skip=None, **kwargs):
     """
     from .utils import fix_catalog_url
     url = fix_catalog_url(url)
+    logger.info("parsing catalog at url %r", url)
     req = requests.get(url, **kwargs)
     return read_xml(req.text, url)
 
