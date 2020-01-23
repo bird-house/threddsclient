@@ -73,6 +73,7 @@ def read_xml(xml, baseurl, skip=None):
         soup = BSoup(xml, 'xml').catalog
         soup.name  # Xml should contain <catalog/> at top level
     except AttributeError:
-        raise ValueError("Does not appear to be a Thredds catalog")
+        raise ValueError(("%r: Does not appear to be a Thredds catalog, xml=%r"
+                          % (baseurl, xml)))
 
     return Catalog(soup, baseurl, skip)
