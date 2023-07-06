@@ -2,6 +2,13 @@
 Changes
 =======
 
+Unreleased
+==================
+
+* add missing classifiers and python requirements to ``setup.py`` to allow validators to detect appropriate versions
+* add python 3.9, 3.10 and 3.11 to the supported versions in ``setup.py`` and validate them in Travis CI
+* fix ``test_noaa`` with the target THREDDS server responding differently than originally tested
+
 0.4.3 (2023-05-31)
 ==================
 
