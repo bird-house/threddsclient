@@ -1,0 +1,55 @@
+name: threddsclient Testing Suite
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  black:
+    name: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - "3.8"
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v3
+      - name: Set up Python${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run flake8
+        run: flake8
+
+  test-pypi:
+    needs: lint
+    name: test-Python${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      - name: Install threddsclient
+        run: |
+          python setup.py install
+      - name: Run tests
+        run: |
+          py.test -v tests
