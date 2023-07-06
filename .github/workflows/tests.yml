@@ -1,20 +1,22 @@
-# run test suites
+name: threddsclient Testing Suite
 
-name: Tests
 on:
-  - pull_request
-  - push
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   # see: https://github.com/fkirc/skip-duplicate-actions
   skip_duplicate:
+    name: Skip Duplicate Actions
     continue-on-error: true
     runs-on: ubuntu-latest
     outputs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
       - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
+        uses: fkirc/skip-duplicate-actions@v5
         with:
           concurrent_skipping: "same_content"
           skip_after_successful_duplicate: "true"
@@ -23,9 +25,9 @@ jobs:
   # see: https://github.com/actions/setup-python
   tests:
     needs: skip_duplicate
+    name: ${{ matrix.test-case }} (Python${{ matrix.python-version }}; ${{ matrix.os }})
     if: ${{ needs.skip_duplicate.outputs.should_skip != 'true' }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.allow-failure }}
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -35,26 +37,23 @@ jobs:
         - "3.9"
         - "3.10"
         - "3.11"
-        allow-failure: [false]
         test-case: [tests]
         include:
           - os: ubuntu-20.04
             python-version: "3.6"
-            allow-failure: false
             test-case: tests
           - os: ubuntu-latest
             python-version: "3.10"
-            allow-failure: false
             test-case: linting
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: "0"
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "${{ matrix.python-version }}"
-      - name: Install Dependencies
+      - name: Install Dependencies and threddsclient
         run: |
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
