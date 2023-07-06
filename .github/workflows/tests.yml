@@ -1,0 +1,66 @@
+# run test suites
+
+name: Tests
+on:
+  - pull_request
+  - push
+
+jobs:
+  # see: https://github.com/fkirc/skip-duplicate-actions
+  skip_duplicate:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          concurrent_skipping: "same_content"
+          skip_after_successful_duplicate: "true"
+          do_not_skip: '["pull_request", "workflow_dispatch", "schedule"]'
+
+  # see: https://github.com/actions/setup-python
+  tests:
+    needs: skip_duplicate
+    if: ${{ needs.skip_duplicate.outputs.should_skip != 'true' }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.allow-failure }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version:
+        - "3.6"
+        - "3.7"
+        - "3.8"
+        - "3.9"
+        - "3.10"
+        - "3.11"
+        allow-failure: [false]
+        test-case: [tests]
+        include:
+          - os: ubuntu-latest
+            python-version: 3.10
+            allow-failure: false
+            test-case: linting
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          python setup.py install
+      - name: Display Packages
+        run: pip freeze
+      - if: ${{ matrix.test-case == 'linting' }}
+        name: Run Linting Checks
+        run: flake8
+      - if: ${{ matrix.test-case == 'tests' }}
+        name: Run Tests
+        run: py.test -v tests
