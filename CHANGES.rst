@@ -5,6 +5,13 @@ Changes
 `Unreleased <https://github.com/bird-house/threddsclient/tree/master>`_
 ==========================================================================================
 
+* Nothing new for the moment.
+
+.. _changes_0.4.4:
+
+`0.4.4 <https://github.com/bird-house/threddsclient/tree/v0.4.4>`_ (2023-07-11)
+==========================================================================================
+
 * add shield badges for PyPI and GitHub releases
 * fix rendering of code blocks in ``README.rst``
 * add missing classifiers and python requirements to ``setup.py`` to allow validators to detect appropriate versions
