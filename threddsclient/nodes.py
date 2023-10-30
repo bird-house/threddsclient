@@ -9,10 +9,10 @@ from .utils import size_in_bytes
 import logging
 logger = logging.getLogger(__name__)
 
-FILE_SERVICE = "HTTPServer"
-OPENDAP_SERVICE = "OPENDAP"
-WMS_SERVICE = "WMS"
-WCS_SERVICE = "WCS"
+FILE_SERVICE = ["HTTPServer"]
+OPENDAP_SERVICE = ["OPENDAP","OpenDAP"]
+WMS_SERVICE = ["WMS"]
+WCS_SERVICE = ["WCS"]
 
 
 class Node(object):
@@ -93,8 +93,10 @@ class Dataset(Node):
     @property
     def service_name(self):
         service_name = None
-        if self.soup.get('servicename'):
-            service_name = self.soup.get('servicename')
+        if self.soup.servicename:
+            service_name = self.soup.servicename.text
+        elif self.soup.serviceName:
+            service_name = self.soup.serviceName.text
         elif self.soup.metadata:
             if self.soup.metadata.serviceName:
                 service_name = self.soup.metadata.serviceName.text
@@ -168,7 +170,7 @@ class DirectDataset(Dataset):
     def access_url(self, service_type=FILE_SERVICE):
         url = None
         for service in self.catalog.get_services(self.service_name):
-            if service.service_type == service_type:
+            if service.service_type in service_type:
                 url = urlparse.urljoin(service.url, self.url_path)
                 break
         return url
