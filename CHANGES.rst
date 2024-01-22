@@ -9,12 +9,12 @@ Changes
 
 .. _changes_0.4.5:
 
-`0.4.5 <https://github.com/bird-house/threddsclient/tree/v0.4.5>`_ (%Y-%m-%d)
+`0.4.5 <https://github.com/bird-house/threddsclient/tree/v0.4.5>`_ (2024-01-22)
 ==========================================================================================
 
-.. _changes_0.4.4:
-
 * Fixed TDS v5 and HYRAX catalog traversing issue (#15)
+
+.. _changes_0.4.4:
 
 `0.4.4 <https://github.com/bird-house/threddsclient/tree/v0.4.4>`_ (2023-07-11)
 ==========================================================================================
