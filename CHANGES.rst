@@ -5,9 +5,9 @@ Changes
 `Unreleased <https://github.com/bird-house/threddsclient/tree/master>`_
 ==========================================================================================
 
-* Nothing new for the moment.
-
 .. _changes_0.4.4:
+
+* Fixed TDS v5 and HYRAX catalog traversing issue (#15)
 
 `0.4.4 <https://github.com/bird-house/threddsclient/tree/v0.4.4>`_ (2023-07-11)
 ==========================================================================================
