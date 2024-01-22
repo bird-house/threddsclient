@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 FILE_SERVICE = ["HTTPServer"]
-OPENDAP_SERVICE = ["OPENDAP","OpenDAP"]
+OPENDAP_SERVICE = ["OPENDAP", "OpenDAP"]
 WMS_SERVICE = ["WMS"]
 WCS_SERVICE = ["WCS"]
 
