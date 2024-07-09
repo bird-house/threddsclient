@@ -5,6 +5,13 @@ Changes
 `Unreleased <https://github.com/bird-house/threddsclient/tree/master>`_
 ==========================================================================================
 
+* Nothing new for the moment.
+
+.. _changes_0.4.6:
+
+`0.4.6 <https://github.com/bird-house/threddsclient/tree/v0.4.6>`_ (2024-07-09)
+==========================================================================================
+
 * Drop Python 3.7.
 * Add Python 3.12.
 
