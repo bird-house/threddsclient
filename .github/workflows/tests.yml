@@ -32,19 +32,17 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version:
-        - "3.7"
         - "3.8"
         - "3.9"
         - "3.10"
         - "3.11"
         - "3.12"
+        - "3.13"
+        - "3.14"
         test-case: [tests]
         include:
-          - os: ubuntu-20.04
-            python-version: "3.6"
-            test-case: tests
           - os: ubuntu-latest
-            python-version: "3.10"
+            python-version: "3.13"
             test-case: linting
     steps:
       - uses: actions/checkout@v3
