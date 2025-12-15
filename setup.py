@@ -25,6 +25,8 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
     'Programming Language :: Python :: 3 :: Only',
     'Topic :: Scientific/Engineering :: Atmospheric Science',
 ]
@@ -37,10 +39,12 @@ setup(
     classifiers=classifiers,
     author='Birdhouse',
     email='',
+    url='https://github.com/bird-house/threddsclient',
+    download_url='https://github.com/bird-house/threddsclient',
     license='Apache 2.0',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     install_requires=reqs,
-    python_requires=">=3.8,<3.13",
+    python_requires=">=3.8,<4",
 )

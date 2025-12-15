@@ -5,7 +5,10 @@ Changes
 `Unreleased <https://github.com/bird-house/threddsclient/tree/master>`_
 ==========================================================================================
 
-* Nothing new for the moment.
+* Add `url` and `download_url` to project setup for reference by PyPI package.
+* Add Python 3.13 and 3.14 to CI and project.
+* Update default Python 3.13 in CI for tests.
+* Remove Python 3.6 and 3.7 from CI.
 
 .. _changes_0.4.6:
 

@@ -1,0 +1,29 @@
+name: Publish PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-pypi:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # trusted publishing
+    environment:
+      name: pypi
+      url: https://pypi.org/p/threddsclient
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+    - name: Set up Python
+      uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+      with:
+        python-version: "3.x"
+    - name: Setup Packages
+      run: pip install -U build twine
+    - name: Run Build
+      run: python3 -m build
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
+
