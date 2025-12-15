@@ -1,7 +1,9 @@
 name: Publish PyPI
+
 on:
   release:
     types: [published]
+
 jobs:
   publish-pypi:
     if: startsWith(github.ref, 'refs/tags/')
