@@ -40,7 +40,7 @@ class Service(Node):
         self.base = soup.get('base')
         self.url = urlparse.urljoin(self.catalog.url, self.base)
         # To fix issues with HYRAX servers
-        if not self.url.endswith('/'):
+        if 'catalog.xml' not in self.url and not self.url.endswith('/'):
             self.url = self.url + '/'
         self.service_type = soup.get('serviceType')
         self.content_type = "application/service"
