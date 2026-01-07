@@ -10,8 +10,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 FILE_SERVICE = ["HTTPServer"]
-OPENDAP_SERVICE = ["OPENDAP", "OpenDAP"]
-WMS_SERVICE = ["WMS"]
+OPENDAP_SERVICE = ["OPENDAP", "OpenDAP", "OPeNDAP"]
+WMS_SERVICE = ["WMS", "wms"]
 WCS_SERVICE = ["WCS"]
 
 
@@ -39,6 +39,9 @@ class Service(Node):
         Node.__init__(self, soup, catalog)
         self.base = soup.get('base')
         self.url = urlparse.urljoin(self.catalog.url, self.base)
+        # To fix issues with HYRAX servers
+        if not self.url.endswith('/'):
+            self.url = self.url + '/'
         self.service_type = soup.get('serviceType')
         self.content_type = "application/service"
         self.services = [Service(s, self.catalog) for s in soup.find_all('service', recursive=False)]
@@ -100,6 +103,8 @@ class Dataset(Node):
         elif self.soup.metadata:
             if self.soup.metadata.serviceName:
                 service_name = self.soup.metadata.serviceName.text
+        elif self.soup.access:
+            service_name = self.soup.access.get('serviceName')
         elif self.soup.parent.metadata:
             if self.soup.parent.metadata.serviceName:
                 service_name = self.soup.parent.metadata.serviceName.text
@@ -162,7 +167,12 @@ class DirectDataset(Dataset):
     """
     def __init__(self, soup, catalog):
         Dataset.__init__(self, soup, catalog)
-        self.url_path = soup.get('urlPath')
+        if soup.get('urlPath'):
+            # Handling THREDDS
+            self.url_path = soup.get('urlPath')
+        elif soup.access.get('urlPath'):
+            # Handling HYRAX
+            self.url_path = soup.access.get('urlPath')
         self.content_type = "application/netcdf"
         self.modified = self._modified(soup)
         self.bytes = self._bytes(soup)
@@ -171,7 +181,7 @@ class DirectDataset(Dataset):
         url = None
         for service in self.catalog.get_services(self.service_name):
             if service.service_type in service_type:
-                url = urlparse.urljoin(service.url, self.url_path)
+                url = urlparse.urljoin(service.url, self.url_path.removeprefix('/'))
                 break
         return url
 
