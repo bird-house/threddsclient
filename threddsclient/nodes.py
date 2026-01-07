@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 FILE_SERVICE = ["HTTPServer"]
 OPENDAP_SERVICE = ["OPENDAP", "OpenDAP", "OPeNDAP"]
-WMS_SERVICE = ["WMS", "wms"]
+WMS_SERVICE = ["WMS"]
 WCS_SERVICE = ["WCS"]
 
 
