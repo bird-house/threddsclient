@@ -181,7 +181,7 @@ class DirectDataset(Dataset):
         url = None
         for service in self.catalog.get_services(self.service_name):
             if service.service_type in service_type:
-                url = urlparse.urljoin(service.url, self.url_path.removeprefix('/'))
+                url = urlparse.urljoin(service.url, self.url_path.lstrip('/'))
                 break
         return url
 
