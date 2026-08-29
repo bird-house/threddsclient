@@ -62,10 +62,18 @@ def find_datasets(soup, catalog):
         if any([x.match(name) for x in catalog.skip]):
             logger.info("Skipping dataset based on 'skips'.  Name: {0}".format(name))
             continue
-        elif ds.get('urlPath') is None:
-            datasets.append(CollectionDataset(ds, catalog))
-        else:
+        elif ds.get('urlPath'):
+            """
+            THREDDS has no urlPath for collections
+            """
             datasets.append(DirectDataset(ds, catalog))
+        elif ds.find_all('access', recursive=False):
+            """
+            HYRAX has data access within sub elements
+            """
+            datasets.append(DirectDataset(ds, catalog))
+        else:
+            datasets.append(CollectionDataset(ds, catalog))
     return datasets
 
 
